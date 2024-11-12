@@ -18,14 +18,20 @@ export class UserController {
         return this.userService.postUser(user);
     }
 
-    @Get(':id')
-    async getUserById(@Param('id') id: number) {
-        return this.userService.getUserById(id);
-    }
+    // @Get(':id')
+    // async getUserById(@Param('id') id: number) {
+    //     return this.userService.getUserById(id);
+    // }
 
-    @Delete(':id')
-    async deleteUserById(@Param('id') id: number) {
-        return this.userService.deleteUserById(id);
+    // @Delete(':id')
+    // async deleteUserById(@Param('id') id: number) {
+    //     return this.userService.deleteUserById(id);
+    // }
+
+    @Get('/testApi')
+    async testApi(){
+        const res = await this.userService.testApi();
+        return res.data;
     }
 
 }
