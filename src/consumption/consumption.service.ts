@@ -4,12 +4,13 @@ import { UpdateConsumptionDto } from './dto/update-consumption.dto';
 import { HttpService } from '@nestjs/axios';
 import { AxiosError, AxiosResponse, AxiosInstance, AxiosHeaders, AxiosRequestHeaders } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
-import * as message  from "src/constants/message";
+import * as message from "src/constants/message";
 
 @Injectable()
 export class ConsumptionService {
 
   private readonly logger = new Logger(ConsumptionService.name);
+  base_url = process.env.BASE_URL;
 
   constructor(private readonly httpService: HttpService) { }
 
@@ -46,14 +47,13 @@ export class ConsumptionService {
   }
 
   public async consumptionByID(headers: any, id: any): Promise<AxiosResponse<any[]>> {
-    // return await this.httpService.axiosRef.get('https://jsonplaceholder.typicode.com/users/' + id);
     const headersRequest = {
       'Content-Type': 'application/json',
       'Authorization': `Basic ${headers.bearer}`,
     };
     console.log(headersRequest);
     const { data } = await firstValueFrom(
-      this.httpService.get('https://jsonplaceholder.typicode.com/users/' + id, { headers: headersRequest }).pipe(
+      this.httpService.get(this.base_url + 'users/' + id, { headers: headersRequest }).pipe(
         catchError((error: AxiosError) => {
           this.logger.error(error.response.data);
           throw 'An error happenedss!';
@@ -64,13 +64,12 @@ export class ConsumptionService {
   }
 
   public async consumptionByModuleID(headers: any, moduleId: any): Promise<AxiosResponse<any[]>> {
-    // return await this.httpService.axiosRef.get('https://jsonplaceholder.typicode.com/posts/' + moduleId);
     const headersRequest = {
       'Content-Type': 'application/json',
       'Authorization': `Basic ${headers.bearer}`,
     };
     const { data } = await firstValueFrom(
-      this.httpService.get('https://jsonplaceholder.typicode.com/posts/' + moduleId, { headers: headersRequest }).pipe(
+      this.httpService.get(this.base_url + 'posts/' + moduleId, { headers: headersRequest }).pipe(
         catchError((error: AxiosError) => {
           this.logger.error(error.response.data);
           throw 'An error happened!';

@@ -6,7 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import { ConsumptionModule } from './consumption/consumption.module';
 
 @Module({
-  imports: [DatabaseModule,UserModule, ConsumptionModule],
+  imports: [DatabaseModule, UserModule, ConsumptionModule],
   controllers: [AppController],
   providers: [AppService],
 })

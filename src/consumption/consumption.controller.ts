@@ -9,6 +9,7 @@ export class ConsumptionController {
 
   @Get()
   findAll(@Req() req: Request) {
+    console.log(process.env.BASE_URL);
     return req.headers;//this.consumptionService.findAll();
   }
 
