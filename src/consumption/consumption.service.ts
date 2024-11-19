@@ -5,16 +5,18 @@ import { HttpService } from '@nestjs/axios';
 import { AxiosError, AxiosResponse, AxiosInstance, AxiosHeaders, AxiosRequestHeaders } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import * as message from "src/constants/message";
+import { ConsumptionScriptService } from '../script/consumptionScript.service';
 
 @Injectable()
 export class ConsumptionService {
-
+  consunptionScript = new ConsumptionScriptService();
   private readonly logger = new Logger(ConsumptionService.name);
   base_url = process.env.BASE_URL;
 
   constructor(private readonly httpService: HttpService) { }
 
   findAll() {
+    console.log(this.consunptionScript.validateConsumption());
     return `This action returns all consumption`;
   }
 
